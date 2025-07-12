@@ -1,0 +1,16 @@
+# R files
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# Raw data files
+data/raw/
+data/raw/*
+*.csv
+listings.csv
+
+# Large data files
+*.gz
+*.xlsx
+*.json
