@@ -4,13 +4,14 @@
 .RData
 .Ruserdata
 
-# Raw data files
+# Raw data files only
 data/raw/
 data/raw/*
-*.csv
-listings.csv
 
 # Large data files
 *.gz
 *.xlsx
 *.json
+
+# Specific large raw files
+listings.csv
