@@ -130,6 +130,37 @@ Each script automatically creates required output directories if they don't exis
 ### **Quick Start Guide**
 
 #### **1. Repository Setup**
+Clone the repository
+```
+git clone https://github.com/g8rdier/airbnb-berlin-superhost-analysis.git
+cd airbnb-berlin-superhost-analysis
+```
+Open in RStudio
+File -> Open Project -> select airbnb-berlin-superhost-analysis.Rproj
+
+
+#### **2. Data Acquisition**
+The first script will guide you through data download:
+
+Run data import (downloads data automatically)
+```
+source("scripts/01_data_import.R")
+```
+
+This creates `data/raw/listings.csv` (~2.6MB) from InsideAirbnb.
+
+#### **3. Complete Analysis Pipeline**
+Run scripts in sequence (each depends on previous outputs):
+
+Complete pipeline execution
+```
+source("scripts/01_data_import.R") # Creates: raw data
+source("scripts/02_data_cleaning.R") # Creates: cleaned datasets + 1 table
+source("scripts/03_exploratory_analysis.R") # Creates: 8 tables + hypothesis data
+source("scripts/04_hypothesis_testing.R") # Creates: 3 results + 5 tables
+source("scripts/05_visualization.R") # Creates: 5 publication figures
+```
+
 ### **Expected Execution Time**
 - **Script 1 (Data Import):** ~30 seconds (download dependent)
 - **Script 2 (Data Cleaning):** ~45 seconds  
