@@ -1,9 +1,13 @@
 # =============================================================================
 # 04_hypothesis_testing.R
 # Airbnb Berlin Superhost Premium Analysis - Statistical Hypothesis Testing
-# Research Question: Do Superhosts achieve different relative premiums for private rooms vs entire places?
-# H₀: Der relative Preisaufschlag von Superhosts unterscheidet sich nicht signifikant 
-#     zwischen privaten Zimmern und ganzen Wohnungen in Berlin
+# Research Question: Do Superhosts achieve different relative price premiums for private rooms vs entire places?
+# H₀: The relative price premium of Superhosts does not differ significantly 
+#     between private rooms and entire apartments in Berlin
+# H₁: The relative price premium of Superhosts differs significantly
+#     between private rooms and entire apartments in Berlin
+# Significance Level: α = 0.05
+# Test Type: Two-sided Welch's t-tests (unequal variances)
 # =============================================================================
 
 # Define required packages
@@ -61,11 +65,11 @@ cat("=== FORMAL HYPOTHESIS ===\n")
 cat("Research Question: Do Superhosts achieve different relative price premiums\n")
 cat("                   for private rooms compared to entire places?\n\n")
 
-cat("H₀: Der relative Preisaufschlag von Superhosts unterscheidet sich nicht\n")
-cat("    signifikant zwischen privaten Zimmern und ganzen Wohnungen in Berlin\n\n")
+cat("H₀: The relative price premium of Superhosts does not differ significantly\n")
+cat("    between private rooms and entire apartments in Berlin\n\n")
 
-cat("H₁: Der relative Preisaufschlag von Superhosts unterscheidet sich\n")
-cat("    signifikant zwischen privaten Zimmern und ganzen Wohnungen in Berlin\n\n")
+cat("H₁: The relative price premium of Superhosts differs significantly\n")
+cat("    between private rooms and entire apartments in Berlin\n\n")
 
 cat("Significance Level: α = 0.05\n")
 cat("Test Type: Two-sided Welch's t-tests (unequal variances)\n\n")
@@ -383,8 +387,8 @@ cat("================================\n\n")
 
 if (premium_test$p.value < 0.05) {
   cat("✅ REJECT NULL HYPOTHESIS (H₀)\n")
-  cat("   Der relative Preisaufschlag von Superhosts unterscheidet sich\n")
-  cat("   SIGNIFIKANT zwischen privaten Zimmern und ganzen Wohnungen.\n\n")
+  cat("   The relative price premium of Superhosts differs SIGNIFICANTLY\n")
+  cat("   between private rooms and entire apartments in Berlin.\n\n")
   
   cat("📊 STATISTICAL EVIDENCE:\n")
   cat("   - p-value: ", format.pval(premium_test$p.value, digits = 4), " < 0.05\n")
@@ -404,8 +408,8 @@ if (premium_test$p.value < 0.05) {
   
 } else {
   cat("❌ FAIL TO REJECT NULL HYPOTHESIS (H₀)\n")
-  cat("   Der relative Preisaufschlag von Superhosts unterscheidet sich\n")
-  cat("   NICHT SIGNIFIKANT zwischen privaten Zimmern und ganzen Wohnungen.\n\n")
+  cat("   The relative price premium of Superhosts does NOT differ\n")
+  cat("   significantly between private rooms and entire apartments.\n\n")
   
   cat("📊 STATISTICAL EVIDENCE:\n")
   cat("   - p-value: ", format.pval(premium_test$p.value, digits = 4), " ≥ 0.05\n")
