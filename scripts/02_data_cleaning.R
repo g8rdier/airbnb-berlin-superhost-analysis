@@ -19,6 +19,14 @@ library(tidyverse)
 library(here)
 library(janitor)
 
+# Create output directories if they don't exist
+if (!dir.exists(here("outputs"))) {
+  dir.create(here("outputs"), recursive = TRUE)
+}
+if (!dir.exists(here("outputs", "tables"))) {
+  dir.create(here("outputs", "tables"), recursive = TRUE)
+}
+
 # Set up logging
 cat("=== Airbnb Berlin Data Cleaning Pipeline ===\n")
 cat("Start time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n\n")
@@ -291,10 +299,10 @@ if (!dir.exists(here("data", "processed"))) {
   dir.create(here("data", "processed"), recursive = TRUE)
 }
 
-# Export cleaned dataset
+# Export cleaned dataset to processed data directory
 write_csv(analysis_data, here("data", "processed", "cleaned_airbnb_berlin.csv"))
 
-# Export summary statistics
+# Export summary statistics to outputs/tables/ directory (academic structure)
 summary_stats <- analysis_data %>%
   group_by(superhost_status, room_type_clean) %>%
   summarise(
@@ -307,10 +315,10 @@ summary_stats <- analysis_data %>%
     .groups = "drop"
   )
 
-write_csv(summary_stats, here("data", "processed", "price_summary_by_group.csv"))
+write_csv(summary_stats, here("outputs", "tables", "price_summary_by_group.csv"))
 
 cat("Cleaned dataset exported to: data/processed/cleaned_airbnb_berlin.csv\n")
-cat("Summary statistics exported to: data/processed/price_summary_by_group.csv\n")
+cat("Summary statistics exported to: outputs/tables/price_summary_by_group.csv\n")
 
 # =============================================================================
 # FINAL REPORT

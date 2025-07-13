@@ -22,6 +22,20 @@ library(psych)
 library(car)
 library(nortest)
 
+# Create output directories if they don't exist
+if (!dir.exists(here("outputs"))) {
+  dir.create(here("outputs"), recursive = TRUE)
+}
+if (!dir.exists(here("outputs", "results"))) {
+  dir.create(here("outputs", "results"), recursive = TRUE)
+}
+if (!dir.exists(here("outputs", "tables"))) {
+  dir.create(here("outputs", "tables"), recursive = TRUE)
+}
+if (!dir.exists(here("outputs", "figures"))) {
+  dir.create(here("outputs", "figures"), recursive = TRUE)
+}
+
 # Set up logging
 cat("=== Airbnb Berlin Superhost Premium - Exploratory Analysis ===\n")
 cat("Start time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n\n")
@@ -103,8 +117,8 @@ descriptive_stats <- data %>%
 cat("Descriptive statistics by group:\n")
 print(descriptive_stats)
 
-# Export descriptive statistics
-write_csv(descriptive_stats, here("data", "processed", "descriptive_statistics.csv"))
+# Export descriptive statistics to TABLES directory
+write_csv(descriptive_stats, here("outputs", "tables", "descriptive_statistics.csv"))
 
 # Overall summary by host type
 host_summary <- data %>%
@@ -120,6 +134,9 @@ host_summary <- data %>%
 cat("\nOverall summary by host type:\n")
 print(host_summary)
 
+# Export host summary to TABLES directory
+write_csv(host_summary, here("outputs", "tables", "host_type_summary.csv"))
+
 # Overall summary by room category
 room_summary <- data %>%
   group_by(room_category) %>%
@@ -133,6 +150,9 @@ room_summary <- data %>%
 
 cat("\nOverall summary by room category:\n")
 print(room_summary)
+
+# Export room summary to TABLES directory
+write_csv(room_summary, here("outputs", "tables", "room_category_summary.csv"))
 
 # =============================================================================
 # STEP 4: Relative Premium Calculations (Core Research Metric)
@@ -152,6 +172,9 @@ premium_analysis <- descriptive_stats %>%
 
 cat("Superhost Premium Analysis:\n")
 print(premium_analysis)
+
+# Export premium analysis to TABLES directory
+write_csv(premium_analysis, here("outputs", "tables", "premium_analysis.csv"))
 
 # Extract key premiums for hypothesis testing
 private_room_premium <- premium_analysis %>% 
@@ -189,6 +212,9 @@ normality_tests <- data %>%
 
 cat("Normality test results (p > 0.05 indicates normal distribution):\n")
 print(normality_tests)
+
+# Export normality tests to TABLES directory
+write_csv(normality_tests, here("outputs", "tables", "normality_tests.csv"))
 
 # Test variance equality (homoscedasticity)
 cat("\nVariance equality tests:\n")
@@ -228,6 +254,9 @@ control_analysis <- data %>%
 cat("Control variables by group:\n")
 print(control_analysis)
 
+# Export control analysis to TABLES directory
+write_csv(control_analysis, here("outputs", "tables", "control_variables.csv"))
+
 # Correlation analysis with price
 correlations <- data %>%
   select(price_numeric, number_of_reviews, availability_365, accommodates, review_scores_rating) %>%
@@ -236,6 +265,9 @@ correlations <- data %>%
 
 cat("\nCorrelations with price:\n")
 print(correlations[1, ])
+
+# Export correlation matrix to TABLES directory
+write_csv(as.data.frame(correlations), here("outputs", "tables", "price_correlations.csv"))
 
 # =============================================================================
 # STEP 7: Effect Size Estimation
@@ -282,6 +314,16 @@ interpret_effect <- function(d) {
 cat("  - Private Rooms effect size:", interpret_effect(effect_private), "\n")
 cat("  - Entire Places effect size:", interpret_effect(effect_entire), "\n\n")
 
+# Create effect size summary table
+effect_size_summary <- data.frame(
+  room_type = c("Private Room", "Entire Place"),
+  cohens_d = c(round(effect_private, 3), round(effect_entire, 3)),
+  interpretation = c(interpret_effect(effect_private), interpret_effect(effect_entire))
+)
+
+# Export effect sizes to TABLES directory
+write_csv(effect_size_summary, here("outputs", "tables", "effect_sizes.csv"))
+
 # =============================================================================
 # STEP 8: Data Export for Hypothesis Testing
 # =============================================================================
@@ -297,7 +339,7 @@ hypothesis_data <- data %>%
   ) %>%
   filter(!is.na(price_numeric))
 
-# Export for hypothesis testing
+# Export for hypothesis testing (remains in PROCESSED - it's a cleaned dataset)
 write_csv(hypothesis_data, here("data", "processed", "hypothesis_testing_data.csv"))
 
 # Create summary for academic report
@@ -319,13 +361,15 @@ research_summary <- list(
   )
 )
 
-# Export research summary
-capture.output(print(research_summary), file = here("data", "processed", "exploratory_summary.txt"))
+# Export research summary to RESULTS directory
+capture.output(print(research_summary), file = here("outputs", "results", "exploratory_summary.txt"))
 
 cat("Exploratory analysis complete. Key files exported:\n")
-cat("  - descriptive_statistics.csv: Detailed group statistics\n")
-cat("  - hypothesis_testing_data.csv: Focused dataset for t-tests\n")
-cat("  - exploratory_summary.txt: Research summary for academic report\n\n")
+cat("  - outputs/tables/descriptive_statistics.csv: Detailed group statistics\n")
+cat("  - outputs/tables/premium_analysis.csv: Premium calculations by room type\n")
+cat("  - outputs/tables/effect_sizes.csv: Cohen's d effect size analysis\n")
+cat("  - outputs/results/exploratory_summary.txt: Research summary\n")
+cat("  - data/processed/hypothesis_testing_data.csv: Dataset for t-tests\n\n")
 
 # =============================================================================
 # FINAL SUMMARY
