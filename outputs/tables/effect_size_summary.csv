@@ -1,0 +1,4 @@
+Test,Cohens_d,Effect_Size,P_Value,Significant
+Private Rooms (Superhost vs Regular),-0.236,Small,1.599e-11,TRUE
+Entire Places (Superhost vs Regular),0.227,Small,< 2.2e-16,TRUE
+Premium Difference (Private vs Entire),-0.559,Medium,< 2.2e-16,TRUE
