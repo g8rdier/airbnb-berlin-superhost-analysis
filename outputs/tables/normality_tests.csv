@@ -1,0 +1,5 @@
+host_type,room_category,n,shapiro_p_value,normal_distribution
+Regular Host,Entire Place,4505,1.4491129836339108e-67,FALSE
+Regular Host,Private Room,1485,2.922002648505713e-53,FALSE
+Superhost,Entire Place,2070,4.8082685649065143e-45,FALSE
+Superhost,Private Room,723,8.507850969024807e-32,FALSE
