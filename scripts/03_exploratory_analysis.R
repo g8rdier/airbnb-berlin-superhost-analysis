@@ -4,13 +4,18 @@
 # Research Question: Do Superhosts achieve higher relative premium for private rooms vs entire places?
 # =============================================================================
 
-# Load required packages
-if (!require("tidyverse")) install.packages("tidyverse")
-if (!require("here")) install.packages("here")
-if (!require("psych")) install.packages("psych")
-if (!require("car")) install.packages("car")
-if (!require("nortest")) install.packages("nortest")
+# Define required packages
+required_packages <- c("tidyverse", "here", "psych", "car", "nortest")
 
+# Check and install packages if not already installed
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    cat("📦 Installing package:", pkg, "\n")
+    install.packages(pkg)
+  }
+}
+
+# Load the packages
 library(tidyverse)
 library(here)
 library(psych)
@@ -28,7 +33,7 @@ cat("Start time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n\n")
 cat("=== Step 1: Loading Cleaned Dataset ===\n")
 
 # Load cleaned data
-data <- read_csv(here("data", "processed", "cleaned_airbnb_berlin.csv"))
+data <- read_csv(here("data", "processed", "cleaned_airbnb_berlin.csv"), show_col_types = FALSE)
 
 cat("Dataset loaded successfully:\n")
 cat("  - Total listings:", nrow(data), "\n")
@@ -190,12 +195,12 @@ cat("\nVariance equality tests:\n")
 
 # Levene's test for equal variances - Private Rooms
 private_room_data <- data %>% filter(room_category == "Private Room")
-levene_private <- leveneTest(price_numeric ~ host_type, data = private_room_data)
+levene_private <- leveneTest(price_numeric ~ factor(host_type), data = private_room_data)
 cat("Private Rooms - Levene's test p-value:", round(levene_private$`Pr(>F)`[1], 4), "\n")
 
 # Levene's test for equal variances - Entire Places
 entire_place_data <- data %>% filter(room_category == "Entire Place")
-levene_entire <- leveneTest(price_numeric ~ host_type, data = entire_place_data)
+levene_entire <- leveneTest(price_numeric ~ factor(host_type), data = entire_place_data)
 cat("Entire Places - Levene's test p-value:", round(levene_entire$`Pr(>F)`[1], 4), "\n")
 
 # Overall assessment
