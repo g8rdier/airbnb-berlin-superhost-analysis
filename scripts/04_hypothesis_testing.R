@@ -216,9 +216,10 @@ p_value_bootstrap <- 2 * min(mean(bootstrap_results >= 0), mean(bootstrap_result
 cat("Bootstrap Analysis Results:\n")
 cat("  - Mean premium difference: ", round(bootstrap_mean, 2), "%\n")
 cat("  - Standard error: ", round(bootstrap_se, 2), "%\n")
-cat("  - 95% CI: [", round(bootstrap_ci[1], 2), "%, ", round(bootstrap_ci[2], "]\n")
+cat("  - 95% CI: [", round(bootstrap_ci[1], 2), "%, ", round(bootstrap_ci[2], 2), "%]\n")
 cat("  - Bootstrap p-value: ", format.pval(p_value_bootstrap, digits = 4), "\n")
 cat("  - Interpretation: ", ifelse(p_value_bootstrap < 0.05, "SIGNIFICANT DIFFERENCE", "NO SIGNIFICANT DIFFERENCE"), "\n\n")
+
 
 # =============================================================================
 # STEP 5: Alternative Approach - Welch's t-test on Premium Differences
