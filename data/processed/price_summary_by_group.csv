@@ -1,5 +1,0 @@
-superhost_status,room_type_clean,count,mean_price,median_price,sd_price,min_price,max_price
-Regular Host,Entire Place,4505,144.04,119,104.29,10,1392
-Regular Host,Private Room,1485,95.49,68,105.65,12,1200
-Superhost,Entire Place,2070,168.23,138,110.93,21,1343
-Superhost,Private Room,723,74.3,65,40.5,14,337
