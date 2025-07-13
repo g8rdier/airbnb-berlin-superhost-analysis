@@ -144,12 +144,6 @@ source("scripts/05_visualization.R") # Publication-ready figures
 - Bootstrap analysis validation and effect size summaries  
 - Academic summary documentation suitable for peer review
 
-## Academic Excellence Demonstrated
-- **Breakthrough research findings** with significant practical implications
-- **Statistical rigor** meeting 5th semester quantitative methodology standards
-- **Professional presentation** suitable for academic publication
-- **Technical competency** in advanced data science methodology
-
 ## Author
 **Gregor Kobilarov**  
 Business Informatics, 5th Semester  
