@@ -84,6 +84,9 @@ sample_sizes <- data %>%
 cat("Sample sizes by group:\n")
 print(sample_sizes)
 
+# Export sample sizes to tables directory
+write_csv(sample_sizes, here("outputs", "tables", "sample_sizes.csv"))
+
 # Calculate group means for premium calculation
 group_means <- data %>%
   group_by(host_type, room_category) %>%
@@ -98,6 +101,9 @@ group_means <- data %>%
 cat("\nGroup means and standard errors:\n")
 print(group_means)
 
+# Export group means to tables directory
+write_csv(group_means, here("outputs", "tables", "group_means.csv"))
+
 # Calculate relative premiums
 premium_calc <- group_means %>%
   select(host_type, room_category, mean_price) %>%
@@ -109,6 +115,9 @@ premium_calc <- group_means %>%
 
 cat("\nRelative premium calculations:\n")
 print(premium_calc)
+
+# Export premium calculations to tables directory
+write_csv(premium_calc, here("outputs", "tables", "premium_calculations.csv"))
 
 # =============================================================================
 # STEP 3: Individual T-Tests for Each Room Type
@@ -234,6 +243,13 @@ cat("  - 95% CI: [", round(bootstrap_ci[1], 2), "%, ", round(bootstrap_ci[2], 2)
 cat("  - Bootstrap p-value: ", format.pval(p_value_bootstrap, digits = 4), "\n")
 cat("  - Interpretation: ", ifelse(p_value_bootstrap < 0.05, "SIGNIFICANT DIFFERENCE", "NO SIGNIFICANT DIFFERENCE"), "\n\n")
 
+# Export bootstrap results to tables directory
+bootstrap_summary <- data.frame(
+  metric = c("Mean Premium Difference (%)", "Standard Error (%)", "95% CI Lower (%)", "95% CI Upper (%)", "Bootstrap p-value"),
+  value = c(round(bootstrap_mean, 2), round(bootstrap_se, 2), round(bootstrap_ci[1], 2), round(bootstrap_ci[2], 2), p_value_bootstrap)
+)
+write_csv(bootstrap_summary, here("outputs", "tables", "bootstrap_analysis.csv"))
+
 # =============================================================================
 # STEP 5: Alternative Approach - Welch's t-test on Premium Differences
 # =============================================================================
@@ -320,6 +336,9 @@ effect_summary <- data.frame(
 cat("Effect Size Summary:\n")
 print(effect_summary)
 
+# Export effect size summary to tables directory
+write_csv(effect_summary, here("outputs", "tables", "effect_size_summary.csv"))
+
 # =============================================================================
 # STEP 7: Comprehensive Results Summary
 # =============================================================================
@@ -399,10 +418,10 @@ if (premium_test$p.value < 0.05) {
 
 cat("=== Step 9: Exporting Results for Academic Report ===\n")
 
-# Export detailed results
+# Export detailed results to results directory
 write_csv(final_results, here("outputs", "results", "hypothesis_test_results.csv"))
 
-# Export test statistics
+# Export test statistics to results directory
 test_statistics <- data.frame(
   Test = c("Private Rooms t-test", "Entire Places t-test", "Premium Difference t-test"),
   t_statistic = c(test_private$statistic, test_entire$statistic, premium_test$statistic),
@@ -438,7 +457,12 @@ capture.output(print(academic_summary), file = here("outputs", "results", "acade
 cat("Hypothesis testing complete. Files exported:\n")
 cat("  - outputs/results/hypothesis_test_results.csv: Final research conclusions\n")
 cat("  - outputs/results/detailed_test_statistics.csv: Complete statistical analysis\n")
-cat("  - outputs/results/academic_summary.txt: Academic report summary\n\n")
+cat("  - outputs/results/academic_summary.txt: Academic report summary\n")
+cat("  - outputs/tables/sample_sizes.csv: Group sample sizes\n")
+cat("  - outputs/tables/group_means.csv: Descriptive statistics by group\n")
+cat("  - outputs/tables/premium_calculations.csv: Premium analysis\n")
+cat("  - outputs/tables/bootstrap_analysis.csv: Bootstrap test results\n")
+cat("  - outputs/tables/effect_size_summary.csv: Effect size analysis\n\n")
 
 # =============================================================================
 # FINAL SUMMARY
