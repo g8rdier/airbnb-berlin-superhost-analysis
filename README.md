@@ -30,12 +30,30 @@ Comprehensive statistical analysis revealing **differential Superhost pricing st
 - **Sample Robustness:** 8,783 analysis-ready listings across all groups
 - **Confidence Interval:** 95% CI [-43.52%, -34.45%]
 
-## Data Source
+## Data Source & Documentation
+
+### **Dataset Information**
 - **Source:** InsideAirbnb Berlin Dataset
 - **Initial Sample:** 14,187 listings (July 2025)
 - **Analysis Sample:** 8,783 listings (after quality filtering)
 - **Geographic Scope:** Berlin metropolitan area
 - **Data Quality:** Zero missing values in critical variables
+
+### **Data Documentation**
+**📋 Comprehensive data documentation is available at [`data/README.md`](data/README.md)**, including:
+- Detailed dataset descriptions and variable definitions
+- Data processing pipeline documentation
+- Quality metrics and sample characteristics
+- Source attribution and usage guidelines
+
+### **Data Repository Policy**
+**Note:** Raw data files are **not included** in this repository, following standard best practices for academic projects. This approach:
+- Maintains repository efficiency and manageable file sizes
+- Respects data source terms and attribution requirements
+- Encourages users to obtain fresh data directly from InsideAirbnb
+- Ensures reproducibility with current datasets
+
+The `data/raw/` directory structure is maintained for reference, and the import script (`01_data_import.R`) provides clear instructions for obtaining the source data.
 
 ## Technology Stack
 - **R & RStudio:** Statistical analysis and visualization
@@ -48,9 +66,9 @@ Comprehensive statistical analysis revealing **differential Superhost pricing st
 ```
 airbnb-berlin-superhost-analysis/
 ├── data/
-│ ├── raw/ # Original InsideAirbnb data
+│ ├── raw/ # Data download location (not tracked)
 │ ├── processed/ # Cleaned, analysis-ready datasets
-│ └── README.md # Comprehensive data documentation
+│ └── README.md # 📋 Comprehensive data documentation
 ├── scripts/
 │ ├── 01_data_import.R # Professional data loading pipeline
 │ ├── 02_data_cleaning.R # Statistical preprocessing
@@ -62,7 +80,7 @@ airbnb-berlin-superhost-analysis/
 │ ├── tables/ # 10+ statistical summary tables
 │ └── results/ # Hypothesis testing conclusions
 ├── reports/ # Academic documentation
-└── README.md # Project overview
+└── README.md # Project overview (this file)
 ```
 
 ## Academic Methodology
@@ -93,9 +111,15 @@ This analysis provides **first quantitative evidence** of sophisticated Superhos
 - **For Academic Research:** Contribution to sharing economy and pricing strategy literature
 
 ## Reproducing the Analysis
+
+### **Prerequisites**
+- R (≥ 4.0) and RStudio
+- Internet connection for data download
+
+### **Step-by-Step Instructions**
 1. **Clone repository:** `git clone https://github.com/g8rdier/airbnb-berlin-superhost-analysis.git`
-2. **Set working directory:** Ensure you're in the project root
-3. **Install required packages:** All scripts include automatic package installation
+2. **Download data:** Follow instructions in [`data/README.md`](data/README.md) for obtaining InsideAirbnb Berlin data
+3. **Set working directory:** Ensure you're in the project root
 4. **Run analysis pipeline:**
 ```
 source("scripts/01_data_import.R") # Load InsideAirbnb data
@@ -143,9 +167,9 @@ Dual Studies Program
 
 ### **Research Citation**
 ```
-Kobilarov, G. (2025). Differential Superhost Pricing Strategies in Berlin's Airbnb Market:
-Evidence of Accommodation-Type Specific Market Segmentation.
-Academic Project - Business Informatics, 5th Semester.
+Kobilarov, G. (2025). Differential Superhost Pricing Strategies in Berlin's Airbnb Market: 
+Evidence of Accommodation-Type Specific Market Segmentation. 
+Dual Studies Program - Business Informatics, 5th Semester, IU International University, Germany.
 ```
 
 *This project demonstrates advanced data science methodology with breakthrough findings about sharing economy pricing strategies, contributing significant insights to academic literature on platform markets and host behavior.*
