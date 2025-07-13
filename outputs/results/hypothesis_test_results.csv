@@ -1,0 +1,7 @@
+Metric,Value,Interpretation
+Private Room Premium,-22.19%,Superhosts charge 22% LESS for private rooms
+Entire Place Premium,16.79%,Superhosts charge 17% MORE for entire places
+Premium Difference,-38.99% (Private - Entire),Massive difference in pricing strategy by room type
+Statistical Significance,SIGNIFICANT (p < 0.05),REJECT H₀
+Effect Size,Medium (Cohen's d = -0.559),Meaningful practical difference
+Practical Significance,HIGH - 39% difference represents substantial market variation,Strong evidence of differential pricing strategies

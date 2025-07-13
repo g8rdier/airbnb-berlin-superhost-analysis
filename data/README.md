@@ -2,11 +2,11 @@
 
 ## Dataset Overview
 
-This directory contains the data files for the **Airbnb Berlin Superhost Premium Analysis** research project, investigating differential pricing strategies employed by Superhosts across accommodation types in Berlin's sharing economy market.
+This directory contains the data files for the **Airbnb Berlin Superhost Premium Analysis** research project, investigating differential pricing patterns employed by Superhosts across accommodation types in Berlin's sharing economy market.
 
 ### Research Context
 - **Project**: 5th semester quantitative research methodology
-- **Research Question**: Do Superhosts in Berlin achieve significantly different relative price premiums for private rooms compared to entire apartments?
+- **Research Question**: Do Superhosts achieve different relative price premiums for private rooms compared to entire apartments in Berlin?
 - **Null Hypothesis (H₀)**: The relative price premium of Superhosts does not differ significantly between private rooms and entire apartments in Berlin
 - **Alternative Hypothesis (H₁)**: The relative price premium of Superhosts differs significantly between private rooms and entire apartments in Berlin
 - **Significance Level**: α = 0.05
@@ -34,6 +34,7 @@ This directory contains the data files for the **Airbnb Berlin Superhost Premium
 ---
 
 ## Directory Structure
+
 ```
 data/
 ├── raw/ # Original data from InsideAirbnb
@@ -41,6 +42,7 @@ data/
 ├── processed/ # Cleaned, analysis-ready datasets
 │ ├── cleaned_airbnb_berlin.csv # Main cleaned dataset
 │ └── hypothesis_testing_data.csv # Focused dataset for statistical testing
+└── README.md # This documentation file
 ```
 
 ---
@@ -102,7 +104,7 @@ data/
 - **Room type filtering**: Focus on "Entire home/apt" and "Private room"
 - **Outlier removal**: 3-sigma rule with €10 minimum threshold
 - **Variable standardization**: Create analysis-ready variables
-- **Quality validation**: Comprehensive data integrity checks
+- **Quality validation**: Data integrity checks
 
 ### **3. Quality Metrics**
 - **Completion Rate**: 100% in critical variables after cleaning
@@ -128,26 +130,28 @@ data/
 | **Median Price** | €125 | €67 |
 | **Price Range** | €10 - €1,392 | €12 - €1,200 |
 
-### **Key Research Finding**
-- **Superhost Premium (Private Rooms)**: -22.19% (Superhosts charge LESS)
-- **Superhost Premium (Entire Places)**: +16.79% (Superhosts charge MORE)
-- **Premium Difference**: 38.98 percentage points
+### **Statistical Results**
+| **Accommodation Type** | **Superhost Premium** |
+|------------------------|---------------------|
+| **Private Rooms** | -22.19% |
+| **Entire Places** | +16.79% |
+| **Differential** | 38.98 percentage points |
 
 ---
 
-## Breakthrough Research Results
+## Statistical Evidence
 
-### **Statistical Evidence**
-- **Hypothesis Result**: **REJECT H₀** - Significant differential pricing confirmed
+### **Hypothesis Testing Results**
+- **Hypothesis Result**: REJECT H₀ - Significant differential pricing confirmed
 - **Statistical Significance**: p < 2.2e-16 (highly significant)
 - **Effect Size**: Medium practical significance (Cohen's d = -0.559)
 - **Confidence Interval**: 95% CI [-43.52%, -34.45%]
 
-### **Market Implications**
-Our analysis reveals **counterintuitive pricing strategies** that challenge conventional assumptions:
-- **Private Rooms**: Competitive pricing approach (accessibility strategy)
-- **Entire Places**: Premium positioning approach (quality differentiation)
-- **Strategic Segmentation**: Different value propositions by accommodation type
+### **Findings Summary**
+The analysis indicates differential pricing patterns:
+- **Private Rooms**: Superhosts charge 22.19% less than regular hosts
+- **Entire Places**: Superhosts charge 16.79% more than regular hosts  
+- **Pattern Difference**: 38.98 percentage points variation by accommodation type
 
 ---
 
@@ -191,7 +195,7 @@ Processed for: Airbnb Berlin Superhost Premium Analysis - Quantification of Pric
 ### **Repository**
 ```
 GitHub: airbnb-berlin-superhost-analysis
-Academic project demonstrating professional data science workflow and statistical analysis methodology
+Academic project demonstrating statistical analysis methodology and data science workflow
 ```
 
 ---
@@ -199,9 +203,9 @@ Academic project demonstrating professional data science workflow and statistica
 ## Version History
 
 - **v1.0** (July 2025): Initial data processing and cleaning pipeline
-- **Current**: Analysis-ready datasets with comprehensive quality validation
+- **Current**: Analysis-ready datasets with statistical validation
 - **Status**: Ready for visualization and academic reporting phases
 
 ---
 
-*This documentation follows international academic data science project standards and provides comprehensive information for reproducible research and peer evaluation.*
+*This documentation follows academic data science project standards and provides information for reproducible research and peer evaluation.*
