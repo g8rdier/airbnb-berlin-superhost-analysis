@@ -3,11 +3,18 @@
 # Airbnb Berlin Superhost Premium Analysis - Data Cleaning Pipeline
 # =============================================================================
 
-# Load required packages
-if (!require("tidyverse")) install.packages("tidyverse")
-if (!require("here")) install.packages("here")
-if (!require("janitor")) install.packages("janitor")
+# Define required packages
+required_packages <- c("tidyverse", "here", "janitor")
 
+# Check and install packages if not already installed
+for (pkg in required_packages) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    cat("📦 Installing package:", pkg, "\n")
+    install.packages(pkg)
+  }
+}
+
+# Load the packages
 library(tidyverse)
 library(here)
 library(janitor)
@@ -18,7 +25,7 @@ cat("Start time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n\n")
 
 # Load raw data
 cat("Loading raw dataset...\n")
-raw_data <- read_csv(here("data", "raw", "listings.csv"))
+raw_data <- read_csv(here("data", "raw", "listings.csv"), show_col_types = FALSE)
 cat("Raw data loaded:", nrow(raw_data), "rows,", ncol(raw_data), "columns\n\n")
 
 # Initial data exploration
