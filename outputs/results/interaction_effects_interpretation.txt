@@ -1,0 +1,32 @@
+INTERACTION EFFECTS ANALYSIS - COMPREHENSIVE SUMMARY
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
+
+RESEARCH QUESTION:
+Do Superhost premiums vary systematically across price segments within accommodation types? 
+
+DATASET OVERVIEW:
+• Total listings analyzed: 8808 
+• Price range: €5 - €10000 
+• Market segments: 6 
+• Segments with adequate samples: 6 
+
+KEY FINDINGS BY ACCOMMODATION TYPE:
+
+ENTIRE APARTMENTS:
+• Cheap segment: 5.3% premium 
+• Medium segment: 0% premium 
+• Expensive segment: -19.9% premium 
+
+PRIVATE ROOMS:
+• Cheap segment: 14% premium 
+• Medium segment: 0.5% premium 
+• Expensive segment: -40.5% premium 
+
+STATISTICAL VALIDATION:
+• 6 out of 6 segments have adequate sample sizes (n≥30 per group) 
+• Statistically significant effects: 4 
+
+STRATEGIC INSIGHTS:
+• Superhosts show differentiated pricing strategies across market segments
+• Evidence of market positioning based on price tier and accommodation type
+• Confirms systematic variation in competitive behavior
