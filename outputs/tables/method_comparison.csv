@@ -1,0 +1,6 @@
+Method,Dataset_Size,Price_Range,Key_Insight
+Quantile Regression (τ=0.25),8808,€5 - €10000,Budget segment (25th percentile)
+Quantile Regression (τ=0.5),8808,€5 - €10000,Median pricing effects
+Quantile Regression (τ=0.75),8808,€5 - €10000,Upper-middle segment (75th percentile)
+Quantile Regression (τ=0.9),8808,€5 - €10000,Luxury segment (90th percentile)
+Linear Regression (OLS),8808,€5 - €10000,Average effect across all prices
