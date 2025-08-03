@@ -1,0 +1,9 @@
+Metric,Value
+Total_Observations,8808
+Train_Size,6167
+Test_Size,2641
+Train_Proportion,0.7
+Superhost_Train_Prop,0.317
+Superhost_Test_Prop,0.317
+Apartment_Train_Prop,0.749
+Apartment_Test_Prop,0.749
