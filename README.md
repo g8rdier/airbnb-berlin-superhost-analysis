@@ -65,7 +65,8 @@ airbnb-berlin-superhost-analysis/
 │ └── processed/ # Analysis-ready datasets
 ├── scripts/ # Complete analysis pipeline
 │ ├── 01_data_import.R # Data acquisition and validation
-│ ├── 02_data_cleaning.R # Preprocessing and quality control
+│ ├── 02_data_cleaning.R # Strict cleaning for descriptive analyses
+│ ├── 02b_relaxed_data_cleaning.R # Relaxed cleaning for predictive modeling
 │ ├── 03_exploratory_analysis.R # Statistical exploration
 │ ├── 04_hypothesis_testing.R # Base hypothesis validation
 │ ├── 05_visualization.R # Initial visualizations
@@ -79,6 +80,32 @@ airbnb-berlin-superhost-analysis/
 └── README.md # This comprehensive documentation
 ```
 
+## Data Cleaning Pipelines
+
+This project employs **dual data cleaning approaches** tailored to specific analytical requirements:
+
+### **Strict Cleaning Pipeline** (`02_data_cleaning.R`)
+- **Purpose:** Descriptive statistical analysis and hypothesis testing
+- **Approach:** Conservative outlier removal and rigorous data quality filtering
+- **Dataset:** 8,783 listings after exclusions
+- **Rationale:** Ensures statistical robustness for inferential analyses by removing extreme values and incomplete records
+- **Use Cases:** t-tests, quantile regression, interaction effects analysis
+
+### **Relaxed Cleaning Pipeline** (`02b_relaxed_data_cleaning.R`)
+- **Purpose:** Predictive modeling and machine learning applications
+- **Approach:** Minimal filtering with outlier retention for training diversity
+- **Dataset:** Larger sample size with broader value ranges preserved
+- **Rationale:** Maintains data variability essential for model generalization and real-world prediction accuracy
+- **Use Cases:** Linear regression, price prediction models, cross-validation
+
+### **Key Differences**
+| **Aspect** | **Strict Pipeline** | **Relaxed Pipeline** |
+|------------|--------------------|--------------------|
+| **Outlier Treatment** | Remove extreme values | Retain for training diversity |
+| **Missing Data** | Stringent exclusion | Imputation strategies |
+| **Sample Size** | Optimized for inference | Maximized for learning |
+| **Primary Goal** | Statistical significance | Predictive performance |
+
 ## Getting Started
 
 ### **Quick Reproduction**
@@ -89,7 +116,8 @@ cd airbnb-berlin-superhost-analysis
 
 # Run complete analysis pipeline
 source("scripts/01_data_import.R") # Data acquisition (~30s)
-source("scripts/02_data_cleaning.R") # Preprocessing (~45s)
+source("scripts/02_data_cleaning.R") # Strict preprocessing (~45s)
+source("scripts/02b_relaxed_data_cleaning.R") # Relaxed preprocessing (~30s)
 source("scripts/03_exploratory_analysis.R") # EDA (~60s)
 source("scripts/04_hypothesis_testing.R") # Statistical tests (~45s)
 source("scripts/05_visualization.R") # Base visualizations (~30s)
