@@ -64,15 +64,15 @@ airbnb-berlin-superhost-analysis/
 │ ├── raw/ # InsideAirbnb source data
 │ └── processed/ # Analysis-ready datasets
 ├── scripts/ # Complete analysis pipeline
-│ ├── 01_data_import.R # Data acquisition and validation
-│ ├── 02_data_cleaning.R # Strict cleaning for descriptive analyses
-│ ├── 02b_relaxed_data_cleaning.R # Relaxed cleaning for predictive modeling
-│ ├── 03_exploratory_analysis.R # Statistical exploration
-│ ├── 04_hypothesis_testing.R # Base hypothesis validation
-│ ├── 05_visualization.R # Initial visualizations
-│ ├── 06_quantile_regression_analysis.R # Robust quantile analysis
-│ ├── 07_interaction_effects_analysis.R # Price tier segmentation
-│ └── 08_predictive_model_analysis.R # ML validation and prediction
+│ ├── 01_data_import.R # Downloads and validates InsideAirbnb Berlin dataset
+│ ├── 02_data_cleaning.R # Conservative data preprocessing for statistical inference
+│ ├── 02b_relaxed_data_cleaning.R # Permissive data preprocessing for machine learning
+│ ├── 03_exploratory_analysis.R # Comprehensive descriptive statistics and distributions
+│ ├── 04_hypothesis_testing.R # Welch's t-tests with effect size analysis
+│ ├── 05_visualization.R # Professional-grade statistical visualizations
+│ ├── 06_quantile_regression_analysis.R # Robust regression across price quantiles
+│ ├── 07_interaction_effects_analysis.R # Price segment strategy analysis with heatmaps
+│ └── 08_predictive_model_analysis.R # Machine learning validation with cross-validation
 ├── outputs/
 │ ├── figures/ # Publication-quality visualizations (11 figures)
 │ ├── tables/ # Comprehensive statistical results (23+ tables)
@@ -106,6 +106,106 @@ This project employs **dual data cleaning approaches** tailored to specific anal
 | **Sample Size** | Optimized for inference | Maximized for learning |
 | **Primary Goal** | Statistical significance | Predictive performance |
 
+## Script Functionality Overview
+
+### **01_data_import.R** - Dataset Acquisition & Validation
+**Purpose:** Downloads and validates the InsideAirbnb Berlin dataset  
+**Functionality:**
+- Automatically downloads listings.csv from InsideAirbnb if not present
+- Performs initial data quality validation (missing values, data types)
+- Generates data source documentation and basic statistics
+- Creates standardized directory structure for downstream processing
+- **Output:** Raw dataset ready for cleaning pipelines  
+**Runtime:** ~30 seconds
+
+### **02_data_cleaning.R** - Conservative Data Preprocessing
+**Purpose:** Rigorous data cleaning optimized for statistical inference  
+**Functionality:**
+- Implements strict outlier removal using IQR-based bounds
+- Removes incomplete records to ensure statistical robustness
+- Standardizes categorical variables and price formatting
+- Filters to major accommodation types (Entire Place, Private Room)
+- Generates comprehensive data quality reports
+- **Output:** 8,783 listings optimized for hypothesis testing  
+**Runtime:** ~45 seconds
+
+### **02b_relaxed_data_cleaning.R** - Permissive Data Preprocessing
+**Purpose:** Minimal cleaning approach maximizing dataset size for ML  
+**Functionality:**
+- Retains borderline cases and price outliers for training diversity
+- Implements strategic imputation instead of record removal
+- Includes all accommodation types (4 categories vs 2)
+- Uses minimal outlier bounds (€2 minimum vs €10)
+- Creates enhanced feature engineering for predictive modeling
+- **Output:** ~14,000 listings optimized for machine learning  
+**Runtime:** ~30 seconds
+
+### **03_exploratory_analysis.R** - Comprehensive Statistical Exploration
+**Purpose:** In-depth descriptive analysis revealing data patterns  
+**Functionality:**
+- Generates comprehensive summary statistics by group
+- Performs distribution analysis with normality testing
+- Creates correlation matrices and statistical diagnostics
+- Identifies potential confounding variables and outliers
+- Produces detailed data profiling reports
+- **Output:** 15+ statistical tables and diagnostic plots  
+**Runtime:** ~60 seconds
+
+### **04_hypothesis_testing.R** - Formal Statistical Inference
+**Purpose:** Rigorous hypothesis testing with effect size analysis  
+**Functionality:**
+- Implements Welch's t-tests for unequal variances
+- Calculates Cohen's d effect sizes with confidence intervals
+- Performs assumption testing (normality, homoscedasticity)
+- Generates bootstrap confidence intervals for robust inference
+- Creates publication-ready statistical result tables
+- **Output:** Hypothesis test results with p < 2.2e-16 significance  
+**Runtime:** ~45 seconds
+
+### **05_visualization.R** - Professional Statistical Graphics
+**Purpose:** Publication-quality visualizations for research presentation  
+**Functionality:**
+- Creates box plots, violin plots, and distribution comparisons
+- Generates professional color schemes and academic formatting
+- Produces error bar plots with confidence intervals
+- Creates multi-panel figures using patchwork layout
+- Implements consistent theme and styling across all plots
+- **Output:** 8+ high-resolution figures ready for publication  
+**Runtime:** ~30 seconds
+
+### **06_quantile_regression_analysis.R** - Robust Regression Analysis
+**Purpose:** Quantile regression across price distribution for robustness  
+**Functionality:**
+- Implements quantile regression at τ = 0.25, 0.5, 0.75, 0.9
+- Uses full dataset including previously excluded outliers
+- Generates coefficient plots showing effects across quantiles
+- Performs robust statistical inference resistant to outliers
+- Creates comprehensive quantile-specific result tables
+- **Output:** Validated findings across entire price spectrum  
+**Runtime:** ~90 seconds
+
+### **07_interaction_effects_analysis.R** - Strategic Price Segmentation
+**Purpose:** Price tier analysis revealing Superhost strategic differentiation  
+**Functionality:**
+- Segments listings into price tertiles within accommodation types
+- Performs systematic t-tests across all price segments
+- Creates professional heatmaps showing strategic positioning
+- Analyzes interaction effects between price and Superhost status
+- Generates strategic insights for market positioning
+- **Output:** Professional heatmap and 6 segment-specific analyses  
+**Runtime:** ~60 seconds
+
+### **08_predictive_model_analysis.R** - Machine Learning Validation
+**Purpose:** Predictive modeling demonstrating practical applicability  
+**Functionality:**
+- Implements 70/30 stratified train/test split
+- Builds linear regression models with comprehensive feature engineering
+- Performs k-fold cross-validation for model robustness
+- Generates prediction accuracy metrics (R², RMSE, MAE)
+- Creates residual analysis and model diagnostic plots
+- **Output:** Validated predictive model with R² = 0.0087  
+**Runtime:** ~60 seconds
+
 ## Getting Started
 
 ### **Quick Reproduction**
@@ -115,15 +215,15 @@ git clone https://github.com/g8rdier/airbnb-berlin-superhost-analysis.git
 cd airbnb-berlin-superhost-analysis
 
 # Run complete analysis pipeline
-source("scripts/01_data_import.R") # Data acquisition (~30s)
-source("scripts/02_data_cleaning.R") # Strict preprocessing (~45s)
-source("scripts/02b_relaxed_data_cleaning.R") # Relaxed preprocessing (~30s)
-source("scripts/03_exploratory_analysis.R") # EDA (~60s)
-source("scripts/04_hypothesis_testing.R") # Statistical tests (~45s)
-source("scripts/05_visualization.R") # Base visualizations (~30s)
-source("scripts/06_quantile_regression_analysis.R") # Quantile analysis (~90s)
-source("scripts/07_interaction_effects_analysis.R") # Interaction effects (~60s)
-source("scripts/08_predictive_model_analysis.R") # Predictive validation (~60s)
+source("scripts/01_data_import.R")
+source("scripts/02_data_cleaning.R")
+source("scripts/02b_relaxed_data_cleaning.R")
+source("scripts/03_exploratory_analysis.R")
+source("scripts/04_hypothesis_testing.R")
+source("scripts/05_visualization.R")
+source("scripts/06_quantile_regression_analysis.R")
+source("scripts/07_interaction_effects_analysis.R")
+source("scripts/08_predictive_model_analysis.R")
 ```
 
 **Total Execution Time:** ~6-7 minutes for complete pipeline
@@ -152,24 +252,24 @@ source("scripts/08_predictive_model_analysis.R") # Predictive validation (~60s)
 - Medium segment: +0.5% premium
 - Expensive segment: -40.5% discount
 
-## Final Project Status
+## Project Status
 
-**✅ COMPLETED** - August 2025  
-**Research Status:** Advanced statistical analysis completed with predictive validation  
-**Academic Standard:** Publication-ready methodology with complete reproducibility
+**Research Status:** Advanced statistical analysis with predictive validation  
+**Academic Standard:** Publication-ready methodology with complete reproducibility  
+**Completion Date:** August 2025
 
-### **Analysis Completion**
-**✅ STEP 1: QUANTILE REGRESSION ANALYSIS** *(Completed)*
+### **Analysis Components**
+**QUANTILE REGRESSION ANALYSIS**
 - Validated findings across price distribution (τ=0.25, 0.5, 0.75, 0.9)
 - Confirmed inverse pricing pattern with robust methodology
 - Full dataset analysis including price outliers
 
-**✅ STEP 2: INTERACTION EFFECTS ANALYSIS** *(Completed)*
+**INTERACTION EFFECTS ANALYSIS**
 - Analyzed Superhost pricing strategies by price segment within accommodation types
 - Segmented listings into price tertiles (cheap/medium/expensive) with statistical testing
 - Created professional heatmap showing systematic pricing differentiation
 
-**✅ STEP 3: PREDICTIVE MODEL VALIDATION** *(Completed)*
+**PREDICTIVE MODEL VALIDATION**
 - Built price prediction model with 70/30 stratified train/test split
 - Validated practical applicability with R² = 0.0087, RMSE = €399.05, MAE = €88.93
 - Demonstrated predictive power of Superhost status and accommodation features
@@ -192,7 +292,6 @@ IU International University, Germany.
 
 ---
 
-**Project Status:** ✅ **COMPLETED - COMPREHENSIVE ANALYSIS**  
 **Statistical Validation:** Multiple methods confirm robust, significant findings  
 **Practical Utility:** Demonstrated through successful predictive modeling  
 **Academic Standard:** Publication-ready methodology with complete reproducibility
