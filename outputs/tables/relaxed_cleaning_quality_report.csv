@@ -1,14 +1,14 @@
 Metric,Value
-total_listings,8961
-superhost_count,2856
-regular_host_count,6105
-entire_place_count,6571
-private_room_count,2210
-shared_room_count,97
+total_listings,9154
+superhost_count,2857
+regular_host_count,6297
+entire_place_count,6743
+private_room_count,2230
+shared_room_count,98
 hotel_room_count,83
-price_range,€5 - €1343
-avg_price,134.97
+price_range,€5 - €2500
+avg_price,137.34
 median_price,108
 missing_neighborhoods,0
 imputed_accommodates,0
-zero_reviews,2025
+zero_reviews,2054

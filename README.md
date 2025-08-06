@@ -95,7 +95,7 @@ This research implements dual data cleaning approaches optimized for distinct an
 ### Permissive Cleaning Pipeline (`02b_relaxed_data_cleaning.R`)
 - **Objective:** Machine learning and predictive modeling
 - **Approach:** Minimal filtering with strategic outlier retention
-- **Resulting Dataset:** Approximately 14,000 listings with preserved variability
+- **Resulting Dataset:** 9,154 listings with enhanced variability (+4.2% vs strict)
 - **Machine Learning Rationale:** Maintains data diversity essential for model generalization and real-world prediction accuracy
 - **Applications:** Linear regression, price prediction, cross-validation
 
@@ -134,12 +134,12 @@ This research implements dual data cleaning approaches optimized for distinct an
 ### 02b_relaxed_data_cleaning.R - Permissive Preprocessing Module
 **Function:** Data preparation maximizing sample size for machine learning  
 **Technical Implementation:**
-- Minimal outlier bounds (€2 threshold vs €10 conservative threshold)
+- Extremely minimal outlier bounds (€1 threshold vs €10 conservative threshold)
 - Strategic imputation for missing values
 - Comprehensive accommodation type inclusion (4 categories)
 - Enhanced feature engineering for predictive applications
 - Data diversity preservation protocols
-- **Output:** Approximately 14,000 listings for machine learning
+- **Output:** 9,154 listings for machine learning (4.2% increase over strict cleaning)
 - **Execution Time:** Approximately 30 seconds
 
 ### 03_exploratory_analysis.R - Descriptive Analysis Module

@@ -1,7 +1,7 @@
 Metric,Relaxed_Approach,Expected_Benefit
-Total_Listings,8961,"~14,000"
-Dataset_Size_Increase,+2%,~59% increase
-Superhost_Count,2856,Proportional increase
+Total_Listings,9154,"~12,000+"
+Dataset_Size_Increase,+4.2%,~30%+ increase
+Superhost_Count,2857,Proportional increase
 Room_Type_Diversity,4,4 types vs 2
-Price_Range_Min,5,€2 vs €10
-Price_Range_Max,1343,Higher ceiling
+Price_Range_Min,5,€1 vs €10
+Price_Range_Max,2500,Much higher ceiling
