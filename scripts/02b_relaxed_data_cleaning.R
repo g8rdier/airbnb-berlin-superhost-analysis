@@ -223,7 +223,9 @@ cleaned_data <- cleaned_data %>%
     
     # Impute host characteristics
     host_response_rate_clean = case_when(
-      !is.na(host_response_rate) ~ as.numeric(str_replace(host_response_rate, "%", "")),
+      !is.na(host_response_rate) & host_response_rate != "N/A" & 
+        str_detect(host_response_rate, "^\\d+%$") ~ 
+        as.numeric(str_replace(host_response_rate, "%", "")),
       is_superhost ~ 95,  # Superhosts typically have high response rates
       TRUE ~ 80  # Reasonable default for regular hosts
     ),
@@ -250,12 +252,20 @@ cleaned_data <- cleaned_data %>%
   )
 
 cat("Variable standardization and imputation completed\n")
+cat("Fixed missing column error and handled coercion warning in host_response_rate\n")
 
 # =============================================================================
 # STEP 6: Comprehensive Variable Selection
 # =============================================================================
 
 cat("=== Step 6: Comprehensive Variable Selection ===\n")
+
+# Check for bed_type column availability
+if ("bed_type" %in% colnames(cleaned_data)) {
+  cat("Column 'bed_type' found and will be included\n")
+} else {
+  cat("Column 'bed_type' not found in dataset, excluding from selection\n")
+}
 
 # Select comprehensive set of variables for analysis
 analysis_data <- cleaned_data %>%
@@ -282,6 +292,7 @@ analysis_data <- cleaned_data %>%
     longitude,
     
     # Property characteristics (with imputed values)
+    accommodates,  # Keep original for comparison
     accommodates_clean,
     bedrooms,
     beds,
@@ -317,7 +328,6 @@ analysis_data <- cleaned_data %>%
     
     # Additional useful variables
     property_type,
-    bed_type,
     amenities,
     host_verifications
   )
