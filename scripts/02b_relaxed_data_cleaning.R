@@ -111,10 +111,10 @@ room_type_counts <- cleaned_data %>%
 cat("Room type distribution:\n")
 print(room_type_counts)
 
-# Include all major room types (relaxed approach)
-major_room_types <- c("Entire home/apt", "Private room", "Shared room", "Hotel room")
-cleaned_data <- cleaned_data %>%
-  filter(room_type %in% major_room_types)
+# Include all room types (truly relaxed approach - no filtering)
+# Keep all available room types instead of filtering like strict cleaning
+# Strict cleaning only keeps: c("Entire home/apt", "Private room")
+# Relaxed approach: keep all room types to maximize dataset size
 
 cat("After inclusive room type filtering:", nrow(cleaned_data), "listings remaining\n")
 
@@ -225,7 +225,7 @@ cleaned_data <- cleaned_data %>%
     host_response_rate_clean = case_when(
       !is.na(host_response_rate) & host_response_rate != "N/A" & 
         str_detect(host_response_rate, "^\\d+%$") ~ 
-        as.numeric(str_replace(host_response_rate, "%", "")),
+        suppressWarnings(as.numeric(str_replace(host_response_rate, "%", ""))),
       is_superhost ~ 95,  # Superhosts typically have high response rates
       TRUE ~ 80  # Reasonable default for regular hosts
     ),
@@ -374,7 +374,7 @@ comparison_metrics <- data.frame(
   Metric = c("Total_Listings", "Dataset_Size_Increase", "Superhost_Count", 
              "Room_Type_Diversity", "Price_Range_Min", "Price_Range_Max"),
   Relaxed_Approach = c(nrow(analysis_data), 
-                       paste0("+", round((nrow(analysis_data) - 8800) / 8800 * 100, 1), "%"),
+                       paste0("+", round((nrow(analysis_data) - 8783) / 8783 * 100, 1), "%"),
                        sum(quality_report$superhost_count),
                        length(unique(analysis_data$room_type_clean)),
                        min(analysis_data$price_numeric),
@@ -438,7 +438,7 @@ cat("Comparison metrics exported to: outputs/tables/relaxed_vs_strict_comparison
 cat("\n=== RELAXED DATA CLEANING COMPLETE ===\n")
 cat("Processing completed:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
 cat("Final relaxed dataset ready with", nrow(analysis_data), "listings\n")
-cat("Dataset size increase:", round((nrow(analysis_data) - 8800) / 8800 * 100, 1), "% vs strict cleaning\n")
+cat("Dataset size increase:", round((nrow(analysis_data) - 8783) / 8783 * 100, 1), "% vs strict cleaning\n")
 cat("Enhanced dataset ready for improved predictive modeling.\n")
 
 # Console summary
@@ -448,7 +448,7 @@ cat(rep("=", 80), "\n\n")
 
 cat("DATASET ENHANCEMENT RESULTS:\n")
 cat("• Final dataset size:", nrow(analysis_data), "listings\n")
-cat("• Improvement over strict cleaning:", round((nrow(analysis_data) - 8800) / 8800 * 100, 1), "% increase\n")
+cat("• Improvement over strict cleaning:", round((nrow(analysis_data) - 8783) / 8783 * 100, 1), "% increase\n")
 cat("• Room type diversity: 4 types (vs 2 in strict)\n")
 cat("• Price range: €", min(analysis_data$price_numeric), " - €", max(analysis_data$price_numeric), "\n")
 cat("• Strategic imputation applied to maximize usable data\n\n")
