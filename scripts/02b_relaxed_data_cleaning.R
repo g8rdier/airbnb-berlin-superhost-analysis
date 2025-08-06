@@ -51,7 +51,8 @@ cat("=== Initial Data Assessment ===\n")
 cat("Total listings:", nrow(raw_data), "\n")
 cat("Superhost data availability:", sum(!is.na(raw_data$host_is_superhost)), "/", nrow(raw_data), "\n")
 cat("Price data availability:", sum(!is.na(raw_data$price)), "/", nrow(raw_data), "\n")
-cat("Room type data availability:", sum(!is.na(raw_data$room_type)), "/", nrow(raw_data), "\n\n")
+cat("Room type data availability:", sum(!is.na(raw_data$room_type)), "/", nrow(raw_data), "\n")
+cat("Target: Maximize dataset size through strategic imputation and minimal filtering\n\n")
 
 # =============================================================================
 # STEP 1: Minimal Essential Variable Filtering
@@ -59,14 +60,15 @@ cat("Room type data availability:", sum(!is.na(raw_data$room_type)), "/", nrow(r
 
 cat("=== Step 1: Minimal Essential Variable Filtering ===\n")
 
-# Keep only listings with absolutely essential variables (relaxed approach)
+# Minimal filtering - only remove completely unusable listings
 cleaned_data <- raw_data %>%
   filter(
-    !is.na(host_is_superhost),
-    !is.na(room_type),
-    !is.na(price),
-    price != "",
-    price != "$0.00"  # Only remove obvious $0 prices
+    !is.na(room_type),  # Room type is essential for analysis
+    !is.na(price),      # Need some price data
+    price != "",        # Remove empty prices
+    price != "$0.00",   # Remove obvious $0 prices
+    price != "0"        # Remove other zero formats
+    # NOTE: Allow missing superhost data - we'll impute it later
   )
 
 cat("After minimal essential filtering:", nrow(cleaned_data), "listings remaining\n")
@@ -77,13 +79,13 @@ cat("After minimal essential filtering:", nrow(cleaned_data), "listings remainin
 
 cat("=== Step 2: Relaxed Price Column Cleaning ===\n")
 
-# Clean price column with relaxed validation
+# Very lenient price column cleaning
 cleaned_data <- cleaned_data %>%
   mutate(
     # Remove $ symbol and convert to numeric
     price_numeric = as.numeric(str_replace_all(price, "[$,]", "")),
-    # More lenient price validation (keep borderline cases)
-    price_issues = is.na(price_numeric) | price_numeric <= 1  # Allow €2+ listings
+    # Extremely lenient price validation - keep almost everything
+    price_issues = is.na(price_numeric) | price_numeric < 1  # Allow €1+ listings
   )
 
 # Report price cleaning results
@@ -138,9 +140,9 @@ price_stats <- cleaned_data %>%
 cat("Price statistics before minimal outlier removal:\n")
 print(price_stats)
 
-# Very relaxed outlier removal (only extreme cases)
-reasonable_min <- 2  # Allow very cheap listings
-reasonable_max <- price_stats$q99 * 2  # Allow up to 2x 99th percentile
+# Extremely relaxed outlier removal - keep almost everything
+reasonable_min <- 1  # Allow €1+ listings
+reasonable_max <- price_stats$q99 * 5  # Allow up to 5x 99th percentile
 
 outliers_removed <- cleaned_data %>%
   filter(
@@ -165,10 +167,11 @@ cat("=== Step 5: Strategic Variable Standardization with Imputation ===\n")
 # Enhanced standardization with strategic imputation
 cleaned_data <- cleaned_data %>%
   mutate(
-    # Standardize superhost variable
+    # Standardize superhost variable with imputation for missing values
     is_superhost = case_when(
       host_is_superhost == "t" ~ TRUE,
       host_is_superhost == "f" ~ FALSE,
+      is.na(host_is_superhost) ~ FALSE,  # Impute missing as regular hosts
       TRUE ~ as.logical(host_is_superhost)
     ),
     
@@ -379,8 +382,8 @@ comparison_metrics <- data.frame(
                        length(unique(analysis_data$room_type_clean)),
                        min(analysis_data$price_numeric),
                        max(analysis_data$price_numeric)),
-  Expected_Benefit = c("~14,000", "~59% increase", "Proportional increase", 
-                      "4 types vs 2", "€2 vs €10", "Higher ceiling")
+  Expected_Benefit = c("~12,000+", "~30%+ increase", "Proportional increase", 
+                      "4 types vs 2", "€1 vs €10", "Much higher ceiling")
 )
 
 cat("Relaxed vs Strict Cleaning Comparison:\n")
@@ -454,7 +457,7 @@ cat("• Price range: €", min(analysis_data$price_numeric), " - €", max(anal
 cat("• Strategic imputation applied to maximize usable data\n\n")
 
 cat("KEY ENHANCEMENTS:\n")
-cat("• Minimal outlier bounds (€2 minimum vs €10)\n")
+cat("• Extremely minimal outlier bounds (€1 minimum vs €10)\n")
 cat("• Inclusive room type approach (4 types vs 2)\n")
 cat("• Strategic imputation instead of row removal\n")
 cat("• Enhanced variable standardization\n")
