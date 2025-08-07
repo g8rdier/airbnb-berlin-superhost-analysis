@@ -85,7 +85,7 @@ premium_data <- premium_calc %>%
 # Create main finding visualization
 p1_premium_comparison <- ggplot(premium_data, aes(x = room_category, y = relative_premium_pct)) +
   geom_col(aes(fill = room_category), width = 0.6, alpha = 0.8) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40", size = 0.8) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray40", linewidth = 0.8) +
   geom_text(aes(label = paste0(round(relative_premium_pct, 1), "%"), 
                 y = relative_premium_pct + ifelse(relative_premium_pct > 0, 2, -2)), 
             size = 5, fontface = "bold") +
@@ -193,7 +193,7 @@ stat_summary <- data.frame(
 p4_statistical_evidence <- ggplot(stat_summary, aes(x = reorder(Metric, Value), y = Value)) +
   geom_col(aes(fill = Significant), alpha = 0.8, width = 0.6) +
   geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), 
-                width = 0.2, size = 1, color = "black") +
+                width = 0.2, linewidth = 1, color = "black") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
   geom_text(aes(label = paste0(round(Value, 1), "%")), 
             hjust = ifelse(stat_summary$Value > 0, -0.2, 1.2), 
