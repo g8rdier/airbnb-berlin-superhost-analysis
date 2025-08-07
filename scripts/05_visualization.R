@@ -198,7 +198,7 @@ p4_statistical_evidence <- ggplot(stat_summary, aes(x = reorder(Metric, Value), 
                 width = 0.2, linewidth = 1, color = "black") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
   geom_text(aes(label = paste0(round(Value, 1), "%"),
-                y = Value + ifelse(Value > 0, 8, -8)),
+                y = ifelse(Value > 0, Upper_CI + 3, Lower_CI - 3)),
             hjust = 0.5, size = 4, fontface = "bold", color = "black") +
   scale_fill_manual(values = c("TRUE" = "#27AE60", "FALSE" = "#E74C3C")) +
   scale_y_continuous(labels = percent_format(scale = 1)) +
