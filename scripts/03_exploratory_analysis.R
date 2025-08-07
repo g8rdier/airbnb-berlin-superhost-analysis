@@ -190,7 +190,13 @@ premium_difference <- private_room_premium - entire_place_premium
 cat("\nKey Research Metrics:\n")
 cat("  - Superhost premium for Private Rooms:", private_room_premium, "%\n")
 cat("  - Superhost premium for Entire Places:", entire_place_premium, "%\n")
-cat("  - Difference (Private - Entire):", round(premium_difference, 2), "%\n\n")
+cat("  - Difference (Private - Entire):", round(premium_difference, 2), "%\n")
+
+# Highlight unexpected finding
+if (private_room_premium < 0) {
+  cat("  *** UNEXPECTED FINDING: Superhosts charge LESS for private rooms ***\n")
+}
+cat("\n")
 
 # =============================================================================
 # STEP 5: Distribution Analysis and Assumption Testing

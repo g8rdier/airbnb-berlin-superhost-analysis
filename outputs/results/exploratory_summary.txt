@@ -7,10 +7,11 @@ $sample_sizes
 
 $premium_analysis
 # A tibble: 2 × 6
-  room_category `Regular Host` Superhost absolute_premium relative_premium_pct premium_ratio
-  <chr>                  <dbl>     <dbl>            <dbl>                <dbl>         <dbl>
-1 Entire Place           144.      168.              24.2                 16.8         1.17 
-2 Private Room            95.5      74.3            -21.2                -22.2         0.778
+  room_category `Regular Host` Superhost absolute_premium relative_premium_pct
+  <chr>                  <dbl>     <dbl>            <dbl>                <dbl>
+1 Entire Place           144.      168.              24.2                 16.8
+2 Private Room            95.5      74.3            -21.2                -22.2
+# ℹ 1 more variable: premium_ratio <dbl>
 
 $key_metrics
                     metric  value
