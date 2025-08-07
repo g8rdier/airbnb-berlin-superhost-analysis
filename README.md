@@ -67,8 +67,7 @@ airbnb-berlin-superhost-analysis/
 ├── scripts/                    # Complete analysis pipeline
 │   ├── 01_data_import.R        # Data acquisition and validation
 │   ├── 02_data_cleaning.R      # Conservative preprocessing for inference
-│   ├── 02b_relaxed_data_cleaning.R  # Permissive preprocessing for ML
-│   ├── 03_exploratory_analysis.R    # Descriptive statistics and diagnostics
+││   ├── 03_exploratory_analysis.R    # Descriptive statistics and diagnostics
 │   ├── 04_hypothesis_testing.R      # Formal statistical inference
 │   ├── 05_visualization.R           # Publication-quality graphics
 │   ├── 06_quantile_regression_analysis.R  # Robust regression analysis
@@ -92,21 +91,6 @@ This research implements dual data cleaning approaches optimized for distinct an
 - **Statistical Rationale:** Ensures robustness for inferential analyses through systematic exclusion of extreme values and incomplete records
 - **Applications:** t-tests, quantile regression, interaction effects analysis
 
-### Permissive Cleaning Pipeline (`02b_relaxed_data_cleaning.R`)
-- **Objective:** Machine learning and predictive modeling
-- **Approach:** Minimal filtering with strategic outlier retention
-- **Resulting Dataset:** 9,154 listings with enhanced variability (+4.2% vs strict)
-- **Machine Learning Rationale:** Maintains data diversity essential for model generalization and real-world prediction accuracy
-- **Applications:** Linear regression, price prediction, cross-validation
-
-### Methodological Comparison
-
-| **Parameter** | **Conservative Pipeline** | **Permissive Pipeline** |
-|---------------|---------------------------|-------------------------|
-| **Outlier Treatment** | Systematic removal | Retention for training diversity |
-| **Missing Data Strategy** | Exclusion-based | Imputation-based |
-| **Sample Size Priority** | Optimized for inference | Maximized for learning |
-| **Primary Objective** | Statistical significance | Predictive performance |
 
 ## Analytical Components
 
@@ -120,27 +104,17 @@ This research implements dual data cleaning approaches optimized for distinct an
 - **Output:** Raw dataset (20,000+ listings) ready for preprocessing
 - **Execution Time:** Approximately 30 seconds
 
-### 02_data_cleaning.R - Conservative Preprocessing Module
-**Function:** Rigorous data preparation for statistical inference  
+### 02_data_cleaning.R - Data Preprocessing Module
+**Function:** Comprehensive data preparation for statistical analysis and modeling  
 **Technical Implementation:**
 - IQR-based outlier detection and removal
 - Systematic exclusion of incomplete records
 - Categorical variable standardization and price normalization
 - Accommodation type filtering (Entire Place, Private Room focus)
 - Comprehensive data quality assessment
-- **Output:** 8,783 listings optimized for hypothesis testing
+- **Output:** 8,783 listings optimized for analysis and modeling
 - **Execution Time:** Approximately 45 seconds
 
-### 02b_relaxed_data_cleaning.R - Permissive Preprocessing Module
-**Function:** Data preparation maximizing sample size for machine learning  
-**Technical Implementation:**
-- Extremely minimal outlier bounds (€1 threshold vs €10 conservative threshold)
-- Strategic imputation for missing values
-- Comprehensive accommodation type inclusion (4 categories)
-- Enhanced feature engineering for predictive applications
-- Data diversity preservation protocols
-- **Output:** 9,154 listings for machine learning (4.2% increase over strict cleaning)
-- **Execution Time:** Approximately 30 seconds
 
 ### 03_exploratory_analysis.R - Descriptive Analysis Module
 **Function:** Comprehensive statistical exploration and pattern identification  
@@ -219,7 +193,6 @@ cd airbnb-berlin-superhost-analysis
 # Sequential script execution
 source("scripts/01_data_import.R")
 source("scripts/02_data_cleaning.R")
-source("scripts/02b_relaxed_data_cleaning.R")
 source("scripts/03_exploratory_analysis.R")
 source("scripts/04_hypothesis_testing.R")
 source("scripts/05_visualization.R")
@@ -228,7 +201,7 @@ source("scripts/07_interaction_effects_analysis.R")
 source("scripts/08_predictive_model_analysis.R")
 ```
 
-**Total Pipeline Execution Time:** 6-7 minutes for complete analysis
+**Total Pipeline Execution Time:** 5-6 minutes for complete analysis
 
 ## Research Contributions
 
