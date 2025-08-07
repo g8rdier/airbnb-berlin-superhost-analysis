@@ -105,7 +105,7 @@ p1_premium_comparison <- ggplot(premium_data, aes(x = room_category, y = relativ
   theme(legend.position = "none")
 
 # Display and save
-print(p1_premium_comparison)
+# Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "01_premium_comparison.png"), 
        plot = p1_premium_comparison, width = 10, height = 6, dpi = 300)
 
@@ -132,7 +132,7 @@ p2_price_distributions <- ggplot(data, aes(x = room_category, y = price_numeric,
   ) +
   theme_academic
 
-print(p2_price_distributions)
+# Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "02_price_distributions.png"), 
        plot = p2_price_distributions, width = 12, height = 6, dpi = 300)
 
@@ -170,7 +170,7 @@ p3_sample_sizes <- ggplot(sample_data, aes(x = room_category, y = n, fill = host
   ) +
   theme_academic
 
-print(p3_sample_sizes)
+# Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "03_sample_sizes.png"), 
        plot = p3_sample_sizes, width = 10, height = 6, dpi = 300)
 
@@ -212,7 +212,7 @@ p4_statistical_evidence <- ggplot(stat_summary, aes(x = reorder(Metric, Value), 
   theme_academic +
   theme(legend.position = "none")
 
-print(p4_statistical_evidence)
+# Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "04_statistical_evidence.png"), 
        plot = p4_statistical_evidence, width = 10, height = 6, dpi = 300)
 
@@ -236,9 +236,20 @@ combined_plot <- (p1_premium_comparison + p2_price_distributions) /
     )
   )
 
-print(combined_plot)
+# Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "05_combined_academic_presentation.png"), 
        plot = combined_plot, width = 16, height = 12, dpi = 300)
+
+# Optional: Create a properly formatted PDF compilation in outputs directory
+pdf_file <- here("outputs", "figures", "visualization_compilation.pdf")
+pdf(pdf_file, width = 12, height = 8)
+p1_premium_comparison
+p2_price_distributions  
+p3_sample_sizes
+p4_statistical_evidence
+combined_plot
+dev.off()
+cat("PDF compilation saved to: outputs/figures/visualization_compilation.pdf\n")
 
 # =============================================================================
 # STEP 7: Export Summary and Completion
@@ -251,7 +262,8 @@ cat("  - 01_premium_comparison.png: Core research finding\n")
 cat("  - 02_price_distributions.png: Price distribution analysis\n")
 cat("  - 03_sample_sizes.png: Sample size validation\n")
 cat("  - 04_statistical_evidence.png: Statistical significance summary\n")
-cat("  - 05_combined_academic_presentation.png: Combined academic figure\n\n")
+cat("  - 05_combined_academic_presentation.png: Combined academic figure\n")
+cat("  - visualization_compilation.pdf: All plots in PDF format\n\n")
 
 # Create visualization summary
 viz_summary <- data.frame(
