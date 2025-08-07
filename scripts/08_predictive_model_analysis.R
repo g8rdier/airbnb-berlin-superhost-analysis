@@ -176,7 +176,8 @@ feature_importance <- extended_model %>%
     importance_rank = rank(-abs_t_statistic)
   ) %>%
   arrange(importance_rank) %>%
-  select(term, estimate, std.error, statistic, p.value, importance_rank)
+  select(term, estimate, std.error, statistic, p.value, 
+         abs_t_statistic, importance_rank)
 
 cat("Feature importance analysis completed.\n")
 
