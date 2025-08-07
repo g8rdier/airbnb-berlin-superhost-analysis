@@ -19,6 +19,9 @@ $practical_significance
 [1] "HIGH - 39% difference represents substantial market variation"
 
 $key_findings
-[1] "Private rooms: -22.19% Superhost premium" "Entire places: +16.79% Superhost premium" "Difference: 38.98 percentage points"      "Statistical significance: p < 0.05"      
+[1] "Private rooms: -22.19% Superhost premium"
+[2] "Entire places: +16.79% Superhost premium"
+[3] "Difference: 38.98 percentage points"     
+[4] "Statistical significance: p < 0.05"      
 [5] "Effect size: Medium (Cohen's d ~ 0.5)"   
 
