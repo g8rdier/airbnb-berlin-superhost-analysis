@@ -195,7 +195,13 @@ premium_difference <- private_premium - entire_premium
 cat("Core Research Finding:\n")
 cat("  - Private Room Premium: ", round(private_premium, 2), "%\n")
 cat("  - Entire Place Premium: ", round(entire_premium, 2), "%\n")
-cat("  - Premium Difference: ", round(premium_difference, 2), "% (Private - Entire)\n\n")
+cat("  - Premium Difference: ", round(premium_difference, 2), "% (Private - Entire)\n")
+
+# Highlight the counterintuitive finding
+if (private_premium < 0) {
+  cat("  *** COUNTERINTUITIVE: Superhosts charge LESS for private rooms! ***\n")
+}
+cat("\n")
 
 # Statistical test for premium difference significance
 # Bootstrap approach for difference in premiums
