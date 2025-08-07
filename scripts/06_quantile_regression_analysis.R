@@ -275,7 +275,9 @@ p <- ggplot(plot_data, aes(x = Quantile, y = Premium, fill = `Accommodation Type
     subtitle = paste0("Quantile regression analysis of ", format(nrow(data_clean), big.mark = ","), " Berlin Airbnb listings"),
     x = "Price Quantile",
     y = "Superhost Premium (%)",
-    caption = "Positive values indicate Superhost premium; negative values indicate Superhost discount.\nAnalysis includes full price range (€1-€10,000) with neighbourhood and review controls."
+    caption = paste("Source: InsideAirbnb Berlin Data | Positive values indicate Superhost premium;",
+                    "negative values indicate Superhost discount.\nAnalysis includes full price range",
+                    "(€1-€10,000) with neighbourhood and review controls.")
   ) +
   
   # Theme

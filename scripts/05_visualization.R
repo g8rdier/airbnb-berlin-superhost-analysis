@@ -107,7 +107,8 @@ p1_premium_comparison <- ggplot(premium_data, aes(x = room_category, y = relativ
 # Display and save
 # Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "01_premium_comparison.png"), 
-       plot = p1_premium_comparison, width = 10, height = 6, dpi = 300)
+       plot = p1_premium_comparison, width = 10, height = 6, dpi = 300,
+       bg = "white")
 
 # =============================================================================
 # STEP 3: Price Distribution Analysis
@@ -134,7 +135,8 @@ p2_price_distributions <- ggplot(data, aes(x = room_category, y = price_numeric,
 
 # Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "02_price_distributions.png"), 
-       plot = p2_price_distributions, width = 12, height = 6, dpi = 300)
+       plot = p2_price_distributions, width = 12, height = 6, dpi = 300,
+       bg = "white")
 
 # =============================================================================
 # STEP 4: Sample Size Validation
@@ -172,7 +174,7 @@ p3_sample_sizes <- ggplot(sample_data, aes(x = room_category, y = n, fill = host
 
 # Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "03_sample_sizes.png"), 
-       plot = p3_sample_sizes, width = 10, height = 6, dpi = 300)
+       plot = p3_sample_sizes, width = 10, height = 6, dpi = 300, bg = "white")
 
 # =============================================================================
 # STEP 5: Statistical Evidence Visualization
@@ -195,9 +197,9 @@ p4_statistical_evidence <- ggplot(stat_summary, aes(x = reorder(Metric, Value), 
   geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), 
                 width = 0.2, linewidth = 1, color = "black") +
   geom_hline(yintercept = 0, linetype = "dashed", color = "gray40") +
-  geom_text(aes(label = paste0(round(Value, 1), "%")), 
-            hjust = ifelse(stat_summary$Value > 0, -0.2, 1.2), 
-            size = 4, fontface = "bold") +
+  geom_text(aes(label = paste0(round(Value, 1), "%"),
+                y = Value + ifelse(Value > 0, 3, -3)),
+            hjust = 0.5, size = 4, fontface = "bold", color = "white") +
   scale_fill_manual(values = c("TRUE" = "#27AE60", "FALSE" = "#E74C3C")) +
   scale_y_continuous(labels = percent_format(scale = 1)) +
   coord_flip() +
@@ -214,7 +216,8 @@ p4_statistical_evidence <- ggplot(stat_summary, aes(x = reorder(Metric, Value), 
 
 # Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "04_statistical_evidence.png"), 
-       plot = p4_statistical_evidence, width = 10, height = 6, dpi = 300)
+       plot = p4_statistical_evidence, width = 10, height = 6, dpi = 300,
+       bg = "white")
 
 # =============================================================================
 # STEP 6: Combined Academic Presentation Figure
@@ -238,7 +241,7 @@ combined_plot <- (p1_premium_comparison + p2_price_distributions) /
 
 # Print removed to prevent Rplots.pdf generation
 ggsave(here("outputs", "figures", "05_combined_academic_presentation.png"), 
-       plot = combined_plot, width = 16, height = 12, dpi = 300)
+       plot = combined_plot, width = 16, height = 12, dpi = 300, bg = "white")
 
 # Create properly formatted PDF compilation using ggsave method
 pdf_file <- here("outputs", "figures", "visualization_compilation.pdf")

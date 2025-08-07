@@ -237,7 +237,8 @@ heatmap_plot <- heatmap_data %>%
                      sum(heatmap_data$total_n), " listings with adequate samples)"),
     x = "Price Segment",
     y = "Accommodation Type",
-    caption = "* p<0.05, ** p<0.01, *** p<0.001\nNegative values indicate Superhost discounts"
+    caption = paste("Source: InsideAirbnb Berlin Data | * p<0.05, ** p<0.01, *** p<0.001",
+                    "\nNegative values indicate Superhost discounts")
   ) +
   theme_minimal() +
   theme(

@@ -306,7 +306,8 @@ prediction_accuracy_plot <- test_predictions %>%
                      round(best_model_performance$r_squared, 3),
                      ", RMSE = €", round(best_model_performance$rmse, 1)),
     x = "Actual Price (€)",
-    y = "Predicted Price (€)"
+    y = "Predicted Price (€)",
+    caption = "Source: InsideAirbnb Berlin Data | Predictive model validation"
   ) +
   theme_minimal() +
   theme(
@@ -377,7 +378,8 @@ if ("abs_t_statistic" %in% colnames(feature_importance) && nrow(feature_importan
     labs(title = "Feature Importance in Price Prediction",
          subtitle = "Top 10 most significant predictors",
          x = "Model Features",
-         y = "Absolute t-statistic") +
+         y = "Absolute t-statistic",
+         caption = "Source: InsideAirbnb Berlin Data | Linear regression model coefficients") +
     theme_minimal() +
     theme(
       plot.title = element_text(face = "bold", size = 14),
