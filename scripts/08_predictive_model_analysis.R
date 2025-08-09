@@ -312,7 +312,8 @@ prediction_accuracy_plot <- test_predictions %>%
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14),
-    plot.subtitle = element_text(size = 11, color = "gray40")
+    plot.subtitle = element_text(size = 11, color = "gray40"),
+    plot.caption = element_text(size = 9, color = "gray50", hjust = 0.5)
   )
 
 # 2. Performance comparison chart
@@ -334,11 +335,13 @@ performance_plot <- performance_comparison %>%
   labs(title = "Model Performance: Training vs Test",
        subtitle = "Validation of model generalization",
        y = "Metric Value",
-       x = "Dataset") +
+       x = "Dataset",
+       caption = "Source: InsideAirbnb Berlin Data") +
   theme_minimal() +
   theme(
     legend.position = "none",
     plot.title = element_text(face = "bold", size = 14),
+    plot.caption = element_text(size = 9, color = "gray50", hjust = 0.5),
     strip.text = element_text(face = "bold")
   )
 
@@ -352,11 +355,13 @@ residuals_plot <- test_predictions %>%
   labs(title = "Residuals Analysis",
        subtitle = "Model assumption validation",
        x = "Predicted Price (€)",
-       y = "Residuals (Actual - Predicted)") +
+       y = "Residuals (Actual - Predicted)",
+       caption = "Source: InsideAirbnb Berlin Data") +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14),
-    plot.subtitle = element_text(size = 11, color = "gray40")
+    plot.subtitle = element_text(size = 11, color = "gray40"),
+    plot.caption = element_text(size = 9, color = "gray50", hjust = 0.5)
   )
 
 # 4. Feature importance visualization
