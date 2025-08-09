@@ -270,10 +270,12 @@ sample_size_plot <- final_interaction_results %>%
   geom_text(aes(label = paste0("n=", total_n)), color = "white", fontface = "bold", size = 4) +
   scale_fill_viridis_c(name = "Sample\nSize", trans = "log10") +
   labs(title = "Sample Sizes by Market Segment",
-       x = "Price Segment", y = "Accommodation Type") +
+       x = "Price Segment", y = "Accommodation Type",
+       caption = "Source: InsideAirbnb Berlin Data") +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.caption = element_text(size = 9, color = "gray50", hjust = 0.5),
     axis.title = element_text(face = "bold"),
     panel.grid = element_blank(),
     legend.title = element_text(face = "bold")
@@ -287,10 +289,12 @@ price_range_plot <- segmentation_summary %>%
             color = "white", fontface = "bold", size = 4) +
   scale_fill_viridis_c(name = "Mean\nPrice (€)", option = "plasma") +
   labs(title = "Average Prices by Market Segment",
-       x = "Price Segment", y = "Accommodation Type") +
+       x = "Price Segment", y = "Accommodation Type",
+       caption = "Source: InsideAirbnb Berlin Data") +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.caption = element_text(size = 9, color = "gray50", hjust = 0.5),
     axis.title = element_text(face = "bold"),
     panel.grid = element_blank(),
     legend.title = element_text(face = "bold")
