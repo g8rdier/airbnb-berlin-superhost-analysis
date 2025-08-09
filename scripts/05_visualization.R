@@ -243,32 +243,6 @@ combined_plot <- (p1_premium_comparison + p2_price_distributions) /
 ggsave(here("outputs", "figures", "05_combined_academic_presentation.png"), 
        plot = combined_plot, width = 16, height = 12, dpi = 300, bg = "white")
 
-# Create properly formatted PDF compilation using ggsave method
-pdf_file <- here("outputs", "figures", "visualization_compilation.pdf")
-
-# Create a comprehensive multi-page figure for PDF
-pdf_compilation <- (p1_premium_comparison | p2_price_distributions) /
-  (p3_sample_sizes | p4_statistical_evidence) /
-  combined_plot +
-  plot_layout(heights = c(1, 1, 2)) +
-  plot_annotation(
-    title = paste("Airbnb Berlin Superhost Premium Analysis -",
-                  "Complete Visualization Portfolio"),
-    subtitle = paste("Research Findings: Differential Pricing Strategies",
-                     "by Accommodation Type"),
-    caption = paste("Data Source: InsideAirbnb Berlin |",
-                    "Academic Analysis by Gregor Kobilarov"),
-    theme = theme(
-      plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
-      plot.subtitle = element_text(size = 14, hjust = 0.5, color = "gray40"),
-      plot.caption = element_text(size = 11, hjust = 0.5, color = "gray50")
-    )
-  )
-
-# Save PDF compilation using ggsave for reliable output
-ggsave(pdf_file, plot = pdf_compilation, width = 16, height = 20,
-       dpi = 300, device = "pdf")
-cat("PDF compilation saved to: outputs/figures/visualization_compilation.pdf\n")
 
 # =============================================================================
 # STEP 7: Export Summary and Completion
@@ -281,8 +255,7 @@ cat("  - 01_premium_comparison.png: Core research finding\n")
 cat("  - 02_price_distributions.png: Price distribution analysis\n")
 cat("  - 03_sample_sizes.png: Sample size validation\n")
 cat("  - 04_statistical_evidence.png: Statistical significance summary\n")
-cat("  - 05_combined_academic_presentation.png: Combined academic figure\n")
-cat("  - visualization_compilation.pdf: All plots in PDF format\n\n")
+cat("  - 05_combined_academic_presentation.png: Combined academic figure\n\n")
 
 # Create visualization summary
 viz_summary <- data.frame(
