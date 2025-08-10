@@ -1,7 +1,7 @@
 room_type_clean,price_tier,n_listings,min_price,max_price,mean_price,median_price
 Entire home/apt,Cheap,2177,10,98,72.31005971520443,74
 Entire home/apt,Medium,2264,99,160,126.73719081272083,125
-Entire home/apt,Expensive,2155,161,10000,321.6403712296988,222
-Private room,Cheap,762,5,55,41.35826771653544,42
+Entire home/apt,Expensive,2134,161,1392,259.04404873477034,221.5
+Private room,Cheap,760,12,55,41.44868421052631,42
 Private room,Medium,738,56,81,68.00271002710028,68
-Private room,Expensive,712,82,9630,186.94101123595524,122
+Private room,Expensive,710,82,1200,160.34084507042257,121.5
