@@ -1,18 +1,19 @@
 # ===============================================================================
-# AIRBNB BERLIN INTERACTION EFFECTS ANALYSIS - STEP 2
+# BERLIN AIRBNB SUPERHOST INTERACTION EFFECTS ANALYSIS
 # ===============================================================================
 # 
 # This script implements interaction effects analysis to understand how Superhost
 # pricing strategies systematically vary across price segments within each 
-# accommodation type.
+# accommodation type, using the cleaned dataset from the main study.
 #
 # Research Question: Do Superhost premiums differ systematically across price 
 # segments (cheap/medium/expensive) within each accommodation type?
 #
-# Expected Insight: Superhosts compete more aggressively in budget segments but 
-# leverage reputation for higher premiums in luxury segments.
+# Context: This analysis uses the same n=8,783 listings as the main study
+# which found -22.19% premium for private rooms and +16.79% for entire apartments.
 #
-# Author: Interaction Effects Analysis Implementation
+# Author: Gregor Kobilarov (Matriculation No.: 4233113)
+# Course: Business Informatics, 5th Semester - Data Analytics & Big Data
 # Date: August 2025
 # ===============================================================================
 
@@ -41,31 +42,23 @@ dir.create("outputs/results", recursive = TRUE, showWarnings = FALSE)
 
 cat("Loading data and preparing price segmentation...\n")
 
-# Load the complete dataset (same as used in quantile regression)
-data <- read_csv("data/raw/listings.csv", show_col_types = FALSE)
+# Load the processed dataset to ensure consistency with main analysis
+# This ensures we use the exact same 8,783 listings as the main study
+data_complete <- read_csv("data/processed/cleaned_airbnb_berlin.csv", show_col_types = FALSE)
 
-# Convert price from character to numeric (remove $ and ,)
-data$price_numeric <- as.numeric(gsub("[$,]", "", data$price))
-
-# Apply the same minimal cleaning as quantile regression
-data_complete <- data %>%
-  filter(
-    !is.na(host_is_superhost),           # Remove missing Superhost status
-    !is.na(room_type),                   # Remove missing room type
-    !is.na(price_numeric),               # Remove missing prices
-    price_numeric > 0,                   # Remove zero prices (data errors)
-    price_numeric <= 10000,              # Remove extreme outliers (>€10k/night)
-    room_type %in% c("Entire home/apt", "Private room") # Focus on main categories
-  ) %>%
+# Ensure consistency with main study data filtering
+# Filter for the two main accommodation types used in the main analysis
+data_complete <- data_complete %>%
+  filter(room_type_clean %in% c("Entire Place", "Private Room")) %>%
   mutate(
-    # Create binary Superhost indicator
-    is_superhost = ifelse(host_is_superhost == TRUE, 1, 0),
+    # Create binary Superhost indicator (using existing is_superhost column)
+    is_superhost = as.numeric(is_superhost),
     
-    # Clean room type variable
+    # Map room types to match interaction analysis naming
     room_type_clean = case_when(
-      room_type == "Entire home/apt" ~ "Entire home/apt",
-      room_type == "Private room" ~ "Private room",
-      TRUE ~ room_type
+      room_type_clean == "Entire Place" ~ "Entire home/apt",
+      room_type_clean == "Private Room" ~ "Private room",
+      TRUE ~ room_type_clean
     ),
     
     # Handle missing number_of_reviews (replace NA with 0)
@@ -232,13 +225,13 @@ heatmap_plot <- heatmap_data %>%
     limits = c(-35, 25)
   ) +
   labs(
-    title = "Superhost Premium Strategies Across Market Segments",
-    subtitle = paste0("How pricing varies by price tier and accommodation type (n=", 
-                     sum(heatmap_data$total_n), " listings with adequate samples)"),
+    title = "Berlin Airbnb: Superhost Premium Variation Across Price Segments",
+    subtitle = paste0("Interaction effects within main study dataset (n=", 
+                     nrow(data_complete), " listings, July 2025)"),
     x = "Price Segment",
     y = "Accommodation Type",
-    caption = paste("Source: InsideAirbnb Berlin Data | * p<0.05, ** p<0.01, *** p<0.001",
-                    "\nNegative values indicate Superhost discounts")
+    caption = paste("Berlin Airbnb Superhost Analysis | InsideAirbnb Data",
+                    "\n* p<0.05, ** p<0.01, *** p<0.001 | Negative values = Superhost discounts")
   ) +
   theme_minimal() +
   theme(
@@ -271,7 +264,7 @@ sample_size_plot <- final_interaction_results %>%
   scale_fill_viridis_c(name = "Sample\nSize", trans = "log10") +
   labs(title = "Sample Sizes by Market Segment",
        x = "Price Segment", y = "Accommodation Type",
-       caption = "Source: InsideAirbnb Berlin Data") +
+       caption = "Berlin Airbnb Superhost Analysis | InsideAirbnb Data") +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
@@ -290,7 +283,7 @@ price_range_plot <- segmentation_summary %>%
   scale_fill_viridis_c(name = "Mean\nPrice (€)", option = "plasma") +
   labs(title = "Average Prices by Market Segment",
        x = "Price Segment", y = "Accommodation Type",
-       caption = "Source: InsideAirbnb Berlin Data") +
+       caption = "Berlin Airbnb Superhost Analysis | InsideAirbnb Data") +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
