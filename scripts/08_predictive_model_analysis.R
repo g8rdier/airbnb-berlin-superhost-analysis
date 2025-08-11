@@ -23,20 +23,25 @@ options(repos = c(CRAN = "https://cran.rstudio.com/"))
 required_packages <- c("dplyr", "readr", "ggplot2", "scales", "patchwork", 
                       "here", "broom", "caret", "viridis", "corrplot", "tidyr")
 
-# Ubuntu-specific package installation with minimal dependencies
+# Ubuntu-specific package installation with robust fallback
 install_ubuntu_safe <- function(pkg) {
   if (Sys.info()["sysname"] == "Linux") {
-    cat("🐧 Installing", pkg, "on Ubuntu with minimal dependencies...\n")
+    cat("🐧 Installing", pkg, "on Ubuntu with robust fallback...\n")
     tryCatch({
-      # Try binary installation first (fastest)
-      install.packages(pkg, type = "both", dependencies = c("Depends", "Imports"))
+      # Try standard installation with dependencies
+      install.packages(pkg, dependencies = TRUE, repos = "https://cran.rstudio.com/")
     }, error = function(e1) {
-      cat("⚠️  Binary failed, trying source with essential deps only...\n")
+      cat("⚠️  Standard install failed, trying with minimal dependencies...\n")
       tryCatch({
-        install.packages(pkg, dependencies = c("Depends", "Imports", "LinkingTo"))
+        install.packages(pkg, dependencies = c("Depends", "Imports"), repos = "https://cran.rstudio.com/")
       }, error = function(e2) {
         cat("⚠️  Minimal install failed, trying basic install...\n")
-        install.packages(pkg, dependencies = FALSE)
+        tryCatch({
+          install.packages(pkg, dependencies = FALSE, repos = "https://cran.rstudio.com/")
+        }, error = function(e3) {
+          cat("⚠️  Basic install failed, trying alternative CRAN mirror...\n")
+          install.packages(pkg, dependencies = TRUE, repos = "https://cloud.r-project.org/")
+        })
       })
     })
   } else {
