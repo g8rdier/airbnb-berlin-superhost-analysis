@@ -5,8 +5,8 @@
 # Date: July 12, 2025
 # =================================================================
 
-# Define required packages
-required_packages <- c("tidyverse", "here")
+# Define required packages (using core packages instead of tidyverse to avoid ragg dependency issues)
+required_packages <- c("readr", "dplyr", "here")
 
 # Check and install packages if not already installed
 for (pkg in required_packages) {
@@ -17,7 +17,8 @@ for (pkg in required_packages) {
 }
 
 # Load the packages
-library(tidyverse)
+library(readr)
+library(dplyr)
 library(here)
 
 # =================================================================
