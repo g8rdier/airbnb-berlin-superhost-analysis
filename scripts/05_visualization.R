@@ -8,11 +8,32 @@
 # Define required packages
 required_packages <- c("readr", "dplyr", "ggplot2", "here", "scales", "RColorBrewer", "patchwork")
 
+# Ubuntu-specific package installation with minimal dependencies
+install_ubuntu_safe <- function(pkg) {
+  if (Sys.info()["sysname"] == "Linux") {
+    cat("🐧 Installing", pkg, "on Ubuntu with minimal dependencies...\n")
+    tryCatch({
+      # Try binary installation first (fastest)
+      install.packages(pkg, type = "both", dependencies = c("Depends", "Imports"))
+    }, error = function(e1) {
+      cat("⚠️  Binary failed, trying source with essential deps only...\n")
+      tryCatch({
+        install.packages(pkg, dependencies = c("Depends", "Imports", "LinkingTo"))
+      }, error = function(e2) {
+        cat("⚠️  Minimal install failed, trying basic install...\n")
+        install.packages(pkg, dependencies = FALSE)
+      })
+    })
+  } else {
+    install.packages(pkg)
+  }
+}
+
 # Check and install packages if not already installed
 for (pkg in required_packages) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
     cat("📦 Installing package:", pkg, "\n")
-    install.packages(pkg)
+    install_ubuntu_safe(pkg)
   }
 }
 
