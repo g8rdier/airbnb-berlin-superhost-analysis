@@ -15,9 +15,30 @@
 # Load required libraries with automatic installation
 required_packages <- c("dplyr", "readr", "ggplot2", "quantreg", "broom", "scales")
 
+# Ubuntu-specific package installation with minimal dependencies
+install_ubuntu_safe <- function(pkg) {
+  if (Sys.info()["sysname"] == "Linux") {
+    cat("🐧 Installing", pkg, "on Ubuntu with minimal dependencies...\n")
+    tryCatch({
+      # Try binary installation first (fastest)
+      install.packages(pkg, type = "both", dependencies = c("Depends", "Imports"))
+    }, error = function(e1) {
+      cat("⚠️  Binary failed, trying source with essential deps only...\n")
+      tryCatch({
+        install.packages(pkg, dependencies = c("Depends", "Imports", "LinkingTo"))
+      }, error = function(e2) {
+        cat("⚠️  Minimal install failed, trying basic install...\n")
+        install.packages(pkg, dependencies = FALSE)
+      })
+    })
+  } else {
+    install.packages(pkg)
+  }
+}
+
 for (pkg in required_packages) {
   if (!require(pkg, character.only = TRUE)) {
-    install.packages(pkg, dependencies = TRUE)
+    install_ubuntu_safe(pkg)
     library(pkg, character.only = TRUE)
   }
 }
