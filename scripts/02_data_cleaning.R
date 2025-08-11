@@ -3,8 +3,8 @@
 # Airbnb Berlin Superhost Premium Analysis - Data Cleaning Pipeline
 # =============================================================================
 
-# Define required packages
-required_packages <- c("tidyverse", "here", "janitor")
+# Define required packages (using core packages instead of tidyverse for Ubuntu compatibility)
+required_packages <- c("readr", "dplyr", "stringr", "here", "janitor")
 
 # Check and install packages if not already installed
 for (pkg in required_packages) {
@@ -15,7 +15,9 @@ for (pkg in required_packages) {
 }
 
 # Load the packages
-library(tidyverse)
+library(readr)
+library(dplyr)
+library(stringr)
 library(here)
 library(janitor)
 

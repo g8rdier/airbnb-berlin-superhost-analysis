@@ -6,7 +6,7 @@
 # =============================================================================
 
 # Define required packages
-required_packages <- c("tidyverse", "here", "ggplot2", "scales", "RColorBrewer", "patchwork")
+required_packages <- c("readr", "dplyr", "ggplot2", "here", "scales", "RColorBrewer", "patchwork")
 
 # Check and install packages if not already installed
 for (pkg in required_packages) {
@@ -17,9 +17,10 @@ for (pkg in required_packages) {
 }
 
 # Load the packages
-library(tidyverse)
-library(here)
+library(readr)
+library(dplyr)
 library(ggplot2)
+library(here)
 library(scales)
 library(RColorBrewer)
 library(patchwork)
