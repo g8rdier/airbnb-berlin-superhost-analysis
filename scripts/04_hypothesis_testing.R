@@ -11,7 +11,7 @@
 # =============================================================================
 
 # Define required packages
-required_packages <- c("tidyverse", "here", "car", "effsize", "broom", "gt")
+required_packages <- c("readr", "dplyr", "tidyr", "here", "car", "effsize", "broom", "gt")
 
 # Check and install packages if not already installed
 for (pkg in required_packages) {
@@ -22,7 +22,9 @@ for (pkg in required_packages) {
 }
 
 # Load the packages
-library(tidyverse)
+library(readr)
+library(dplyr)
+library(tidyr)
 library(here)
 library(car)
 library(effsize)
